@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable prettier/prettier */
 import React, { useState } from 'react';
 import './App.scss';
@@ -8,16 +9,37 @@ import * as goodsAPI from './api/goods';
 export const App: React.FC = () => {
   const [goods, setGoods] = useState<Good[]>([]);
 
-  const loadAll = () => {
-    goodsAPI.getAll().then(setGoods);
+  const loadAll = async () => {
+    try {
+      const loadedGoods = await goodsAPI.getAll();
+
+      setGoods(loadedGoods);
+    } catch (error) {
+      console.error(error);
+      setGoods([]);
+    }
   };
 
-  const loadFirstFive = () => {
-    goodsAPI.get5First().then(setGoods);
+  const loadFirstFive = async () => {
+    try {
+      const loadedGoods = await goodsAPI.get5First();
+
+      setGoods(loadedGoods);
+    } catch (error) {
+      console.error(error);
+      setGoods([]);
+    }
   };
 
-  const loadRedGoods = () => {
-    goodsAPI.getRedGoods().then(setGoods);
+  const loadRedGoods = async () => {
+    try {
+      const loadedGoods = await goodsAPI.getRedGoods();
+
+      setGoods(loadedGoods);
+    } catch (error) {
+      console.error(error);
+      setGoods([]);
+    }
   };
 
   return (
